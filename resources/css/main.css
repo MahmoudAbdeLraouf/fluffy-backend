@@ -1,0 +1,35 @@
+body
+{
+    background-color: chartreuse;
+    direction: rtl;
+    font-family: Cairo, sans-serif  !important;
+    text-align: right !important;
+}
+.content-wrapper, .main-header{
+    margin-left: 0px !important;
+    margin-right: 250px !important;
+}
+.section-title
+{
+    direction: initial;
+}
+.card-header:first-child
+{
+    display: flex;
+}
+.error
+{
+    color: red;
+}
+.delete-form
+{
+    display: inline-block;
+}
+
+.alert-success {
+    margin: 1%;
+}
+
+select{
+    padding-right: 30px !important;
+}
