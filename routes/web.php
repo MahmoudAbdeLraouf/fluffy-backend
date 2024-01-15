@@ -8,6 +8,11 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\VaccinationController;
 use App\Http\Controllers\SpecialistController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SpecialistOrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\OrderInvitationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,10 +51,29 @@ Route::middleware('auth')->group(function () {
         Route::resource('specialists', SpecialistController::class);
         // clients routes resource
         Route::resource('clients', ClientController::class);
+        // client city
+        Route::get('clients/{id}/city', [ClientController::class, 'city'])->name('clients.city');
+        // orders routes resource
+        Route::resource('orders', OrderController::class);
+        Route::get('orders/{id}/invite', [OrderInvitationController::class, 'invite'])->name('orders.invite');
+        Route::post('orders/invite/send', [OrderInvitationController::class, 'sendInvitation'])->name('orders.invite.send');
+        // orders items routes resource
+        Route::resource('items', OrderItemController::class);
+        Route::get('orders/{id}/items', [OrderItemController::class, 'index'])->name('orders.items.list');
+        Route::get('orders/{id}/items/create', [OrderItemController::class, 'create'])->name('orders.items.create');
+
     });
 
 });
 
 
+Route::group(["name"=>"specialists", "prefix"=>"specialists"], function(){
+    Route::get('orders/new', [SpecialistOrderController::class, 'listNewOrders'])->name('specialists.orders.new');
+    Route::get('orders/current', [SpecialistOrderController::class, 'listCurrentOrders'])->name('specialists.orders.current');
+    Route::get('orders/completed', [SpecialistOrderController::class, 'listCompletedOrders'])->name('specialists.orders.completed');
+    Route::get('orders/details/{id}', [SpecialistOrderController::class, 'details'])->name('specialists.orders.details');
+    Route::get('orders/status/change/{id}/{status}', [SpecialistOrderController::class, 'changeStatus'])->name('specialists.orders.status.change');
+
+});
 
 require __DIR__.'/auth.php';
