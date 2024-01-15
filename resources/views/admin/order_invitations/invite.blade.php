@@ -37,9 +37,12 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{$id}}">
                                 <div class="card-body">
+                                    <?php
+                                        $sps = $order->invitations->pluck('specialist_id')->toArray()
+                                        ?>
                                     @foreach($specialists as $sp)
                                     <div class="form-group">
-                                            <input type="checkbox" name = "specialists_ids[]" value="{{$sp->id}}"> {{$sp->name}}
+                                            <input type="checkbox" name = "specialists_ids[]" value="{{$sp->id}}" {{count($sps) && in_array($sp->id, $sps) ? 'checked' : ''}}> {{$sp->name}}
                                             <br>
                                     </div>
                                     @endforeach

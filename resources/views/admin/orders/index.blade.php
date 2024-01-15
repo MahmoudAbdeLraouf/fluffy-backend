@@ -20,11 +20,11 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right section-title" >
                             <li class="breadcrumb-item"><a href="#">القائمه</a></li>
-                            <li class="breadcrumb-item active"> العملاء  </li>
+                            <li class="breadcrumb-item active"> الطلبات  </li>
                         </ol>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{route('clients.create')}}" class="btn btn-primary float-sm-left">اضافه عميل جديد </a>
+                        <a href="{{route('orders.create')}}" class="btn btn-primary float-sm-left">اضافه طلب جديد </a>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -37,7 +37,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">عرض كل العملاء </h3>
+                                <h3 class="card-title">عرض كل الطلبات </h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -46,31 +46,42 @@
                                     <tr>
                                         <th> اسم العميل </th>
                                         <th> رقم الجوال </th>
+                                        <th> المنطقه </th>
+                                        <th> حاله الطلب</th>
                                         <th>أجراءات</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($clients as $client)
+                                    @foreach($orders as $order)
                                         <tr>
-                                            <td>{{$client->name}}</td>
-                                            <td>{{$client->phone}}</td>
-
-                                            <td>
-                                                <a class="btn btn-primary update-btn" href="{{route('clients.edit',$client->id)}}">تعديل</a>
-                                                <form method="POST" action="{{route('clients.destroy',$client->id)}}" class="delete-form">
+                                            <td>{{$order->client->name}}</td>
+                                            <td>{{$order->client->phone}}</td>
+                                            <td>{{$order->region->name}}</td>
+                                            @if($order->status == 0)
+                                                <td>معلق</td>
+                                            @elseif($order->status == 1)
+                                                <td>مفعل</td>
+                                            @else
+                                                <td>اخري</td>
+                                            @endif
+                                                <td>
+                                                <a class="btn btn-primary update-btn" href="{{route('orders.edit',$order->id)}}">تعديل</a>
+                                                <form method="POST" action="{{route('orders.destroy',$order->id)}}" class="delete-form">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                     <div class="form-group">
                                                         <input type="submit" class="btn btn-danger delete-user" value="حذف">
                                                     </div>
                                                 </form>
-                                            </td>
+                                                <a class="btn btn-primary update-btn" href="{{route('orders.invite',$order->id)}}">دعوه</a>
+                                                    <a class="btn btn-primary update-btn" href="{{route('orders.items.list',$order->id)}}">التطعيمات</a>
+                                                </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th> اسم العميل </th>
+                                        <th> اسم الطلب </th>
                                         <th> رقم الجوال </th>
                                         <th>أجراءات</th>
                                     </tr>

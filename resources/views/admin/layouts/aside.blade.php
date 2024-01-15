@@ -88,6 +88,19 @@
                         <p>أضافه عميل جديد</p>
                     </a>
                 </li>
+                <li class="nav-header"> أداره الطلبات  </li>
+                <li class="nav-item">
+                    <a href="{{route('orders.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-ellipsis-h"></i>
+                        <p>عرض جميع الطلبات </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('orders.create')}}" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>أضافه طلب جديد</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

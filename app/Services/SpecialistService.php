@@ -1,18 +1,19 @@
 <?php
 namespace App\Services;
-use App\Models\Specialist;
+use App\Models\User;
+
 Class SpecialistService {
 
     // list all Specialists function
     public function list()
     {
-        return Specialist::all();
+        return User::where('is_admin', 0)->get();
     }
 
     // create Specialist function
     public function create($request)
     {
-        $specialist = new Specialist();
+        $specialist = new User();
         $specialist->name = $request->name;
         $specialist->email = $request->email;
         $specialist->password = $request->password;
@@ -27,13 +28,13 @@ Class SpecialistService {
     // find Specialist function
     public function find($id)
     {
-        return Specialist::find($id);
+        return User::find($id);
     }
 
     // update vaccination function
     public function update($request, $id)
     {
-        $specialist = Specialist::find($id);
+        $specialist = User::find($id);
         $specialist->name = $request->name;
         $specialist->email = $request->email;
         if ($request->password != null){
@@ -47,7 +48,7 @@ Class SpecialistService {
     // delete Specialist function
     public function delete($id)
     {
-        $specialist = Specialist::find($id);
+        $specialist = User::find($id);
         $specialist->delete();
     }
 }

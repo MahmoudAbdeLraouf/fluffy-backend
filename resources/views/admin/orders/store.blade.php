@@ -12,8 +12,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right section-title" >
-                        <li class="breadcrumb-item active"> أضافه عميل  </li>
-                        <li class="breadcrumb-item"><a href="{{route('clients.index')}}">القائمه</a></li>
+                        <li class="breadcrumb-item active"> أضافه طلب  </li>
+                        <li class="breadcrumb-item"><a href="{{route('orders.index')}}">القائمه</a></li>
                     </ol>
                 </div>
             </div>
@@ -29,46 +29,26 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title"> أضافه عميل جديد </h3>
+                            <h3 class="card-title"> أضافه طلب جديد </h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post" action="{{isset($client)  ? route('clients.update', $client->id) : route('clients.store')}}">
+                        <form method="post" action="{{isset($order)  ? route('orders.update', $order->id) : route('orders.store')}}">
                             @csrf
-                            @if(isset($client))
+                            @if(isset($order))
                                 @method('PUT')
                             @endif
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> اسم العميل </label>
-                                    <input type="text" class="form-control" required value="{{isset($client) ? $client->name : ''}}" id="name" name="name" placeholder="أضف  اسم العميل  ">
-                                    @if($errors->has('name'))
-                                        <div class="error">{{ $errors->first('name') }}</div>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> رقم الجوال </label>
-                                    <input type="text" class="form-control" required value="{{isset($client) ? $client->phone : ''}}" id="phone" name="phone" placeholder="أضف رقم الجوال  ">
-                                    @if($errors->has('phone'))
-                                        <div class="error">{{ $errors->first('phone') }}</div>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> تاريخ الاشتراك </label>
-                                    <input type="date" class="form-control" required value="{{isset($client) ? $client->subscription_date : ''}}" id="subscription_date" name="subscription_date">
-                                    @if($errors->has('subscription_date'))
-                                        <div class="error">{{ $errors->first('subscription_date') }}</div>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> الجنس </label>
-                                    <select name="gender" id="gender" class="form-control" required>
-                                        <option value="">اخنر الجنس</option>
-                                        <option value = "1">ذكر </option>
-                                        <option value = "2">انثى </option>
+                                    <label for="exampleInputEmail1"> رقم جوال العميل </label>
+                                    <select name="client_id" id="client_id" class="form-control" required>
+                                        <option value="">اختر عميل </option>
+                                    @foreach($clients as $client)
+                                            <option value="{{$client->id}}" {{isset($order) && $order->client_id == $client->id ? 'selected' : ''}}>{{$client->phone}}</option>
+                                        @endforeach
                                     </select>
-                                    @if($errors->has('gender'))
-                                        <div class="gender">{{ $errors->first('city_id') }}</div>
+                                    @if($errors->has('client_id'))
+                                        <div class="error">{{ $errors->first('client_id') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
@@ -76,7 +56,7 @@
                                     <select name="city_id" id="city_id" class="form-control" required>
                                     <option value="">اخنر مدينه</option>
                                     @foreach($cities as $city)
-                                            <option value="{{$city->id}}" {{isset($client) && $client->regions->count() && $client->regions->first()->city_id == $city->id ? 'selected' : ''}}>{{$city->name}}</option>
+                                            <option value="{{$city->id}}" {{isset($order) && $order->region->city_id == $city->id ? 'selected' : ''}}>{{$city->name}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('city_id'))
@@ -88,7 +68,7 @@
                                     <select name="region_id" id="region_id" class="form-control" required>
                                         <option value="">اخنر منطقه</option>
                                     @foreach($regions as $region)
-                                            <option value="{{$region->id}}" {{isset($client) && in_array($region->id, $client->regions->pluck('id')->toArray()) ? 'selected' : ''}}>{{$region->name}}</option>
+                                            <option value="{{$region->id}}" {{isset($order) && $order->region_id == $region->id ? 'selected' : ''}}>{{$region->name}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('region_id'))
@@ -96,34 +76,83 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> نوع الحيوان </label>
-                                    <select name="animal_types_ids[]" id="animal_types_ids" class="form-control" required multiple>
-                                        @foreach($animal_types as $animal_type)
-                                            <option value="{{$animal_type->id}}" {{isset($client) && in_array($animal_type->id, $client->animal_types()->pluck('id')->toArray()) ? 'selected' : ''}}>{{$animal_type->name}}</option>
-                                        @endforeach
-                                    </select>
-                                    @if($errors->has('animal_type'))
-                                        <div class="error">{{ $errors->first('animal_type') }}</div>
+                                    <label for="exampleInputEmail1"> عنوان العميل </label>
+                                    <input type="text" class="form-control" required value="{{isset($order) ? $order->address : ''}}" id="address" name="address" placeholder="أضف  عنوان العميل  ">
+                                    @if($errors->has('address'))
+                                        <div class="error">{{ $errors->first('address') }}</div>
+                                    @endif
+                                </div>
+                                <!-- Date and time -->
+                                <div class="form-group">
+                                    <label>تاريخ التطعيم </label>
+                                    <input type="date" class="form-control" name="date" required value="{{isset($order) ? $order->date->format('Y-m-d') : ''}}"/>
+                                    @if($errors->has('date'))
+                                        <div class="error">{{ $errors->first('date') }}</div>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-6" style="display: inline-block;width:49%">
+                                    <label>موعد من الساعه </label>
+                                    <input type="time" class="form-control" name="from" required value="{{isset($order) ? $order->from : ''}}"/>
+                                    @if($errors->has('from'))
+                                        <div class="error">{{ $errors->first('from') }}</div>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-6" style="display: inline-block;width:49%">
+                                    <label>موعد الي الساعه </label>
+                                    <input type="time" class="form-control" name="to" required value="{{isset($order) ? $order->to : ''}}"/>
+                                    @if($errors->has('to'))
+                                        <div class="error">{{ $errors->first('to') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> كيف عرف عنا </label>
-                                    <select name="know_from" id="know_from" class="form-control" required>
-                                        <option value="">اخنر كيف عرف عنا</option>
-                                        <option value = "1">فيس بوك </option>
-                                        <option value = "2">تويتر </option>
-                                        <option value = "3">جوجل </option>
-                                        <option value = "4">صديق </option>
-                                        <option value = "5">اعلان </option>
-                                        <option value = "6">اخرى </option>
-                                    </select>
-                                    @if($errors->has('gender'))
-                                        <div class="gender">{{ $errors->first('city_id') }}</div>
+                                    <label> ملاحظات </label>
+                                    <textarea class="form-control" name="notes" rows="3" placeholder="أضف ملاحظات ">{{isset($order) ? $order->note : ''}}</textarea>
+                                    @if($errors->has('notes'))
+                                        <div class="error">{{ $errors->first('notes') }}</div>
                                     @endif
                                 </div>
                             </div>
-                            <!-- /.card-body -->
-
+                            @if(isset($animalTypes))
+                            <div class = "card card-primary">
+                                    <div class="card-header" style="border-radius:0; background-color:blueviolet">
+                                        <h3 class="card-title"> اداره التطعيمات </h3>
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> نوع الحيوان </label>
+                                            <select name="animal_type_id" id="animal_type_id" class="form-control" required>
+                                                <option value="">اختر نوع الحيوان </option>
+                                                @foreach($animalTypes as $animalType)
+                                                    <option value="{{$animalType->id}}" {{isset($order) && $order->client_id == $client->id ? 'selected' : ''}}>{{$animalType->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @if($errors->has('animal_type_id'))
+                                                <div class="error">{{ $errors->first('animal_type_id') }}</div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> عمر الحيوان </label>
+                                            <input type="text" class="form-control" required value="{{isset($order) ? $order->client->address : ''}}" id="animal_type_age" name="animal_type_age" placeholder="أضف  عمر الحيوان  ">
+                                            @if($errors->has('animal_type_age'))
+                                                <div class="error">{{ $errors->first('animal_type_age') }}</div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1"> التطعيم </label>
+                                            <select name="vaccination_ids[]" id="vaccination_id" class="form-control" required multiple>
+                                                <option value="">اختر تطعيم الحيوان </option>
+                                                @foreach($vaccinations as $vaccination)
+                                                    <option value="{{$vaccination->id}}" {{isset($order) && $order->client_id == $client->id ? 'selected' : ''}}>{{$vaccination->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @if($errors->has('vaccination_ids'))
+                                                <div class="error">{{ $errors->first('vaccination_ids') }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>

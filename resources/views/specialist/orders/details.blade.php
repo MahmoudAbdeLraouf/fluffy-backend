@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-specialist-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -20,11 +20,11 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right section-title" >
                             <li class="breadcrumb-item"><a href="#">القائمه</a></li>
-                            <li class="breadcrumb-item active"> الطلبات  </li>
+                            <li class="breadcrumb-item active"> طلب جديد  </li>
                         </ol>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{route('orders.items.create', $orderId)}}" class="btn btn-primary float-sm-left">اضافه تطعيم جديد </a>
+                        <a href="{{route('specialists.orders.status.change', [$order->id, 1])}}" class="btn btn-primary float-sm-left">  قبول الطلب </a>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -47,7 +47,6 @@
                                         <th> نوع الحيوان </th>
                                         <th> عمر الحيوان </th>
                                         <th> التطعيمات </th>
-                                        <th>أجراءات</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -59,16 +58,6 @@
                                                 $vaccinationIds =$item->itemVaccination->pluck('vaccination_id')
                                                 ?>
                                             <td>{{App\Models\Vaccination::whereIn('id', $vaccinationIds)->get()->pluck('name')}}</td>
-                                            <td>
-                                            <a class="btn btn-primary update-btn" href="{{route('items.edit',$item->id)}}">تعديل</a>
-                                            <form method="POST" action="{{route('items.destroy',$item->id)}}" class="delete-form">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-danger delete-user" value="حذف">
-                                                </div>
-                                            </form>
-                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -77,7 +66,6 @@
                                         <th> نوع الحيوان </th>
                                         <th> عمر الحيوان </th>
                                         <th> التطعيمات </th>
-                                        <th>أجراءات</th>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -95,4 +83,4 @@
         <!-- /.content -->
     </div>
 
-</x-admin-layout>
+</x-specialist-layout>

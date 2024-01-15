@@ -35,8 +35,8 @@
             <div class="wrapper">
 
 
-                @include('admin.layouts.navbar')
-                @include('admin.layouts.aside')
+                @include('specialist.layouts.navbar')
+                @include('specialist.layouts.aside')
 
                 <!-- Page Content -->
                 <main>

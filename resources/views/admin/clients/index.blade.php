@@ -54,6 +54,7 @@
                                         <tr>
                                             <td>{{$client->name}}</td>
                                             <td>{{$client->phone}}</td>
+                                            <td>{{$client->phone}}</td>
 
                                             <td>
                                                 <a class="btn btn-primary update-btn" href="{{route('clients.edit',$client->id)}}">تعديل</a>

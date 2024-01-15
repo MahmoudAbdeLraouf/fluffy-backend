@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\SpecialistService;
 use App\Services\CityService;
-use App\Services\RegionService;
+use App\Services\RegionService;;
 class SpecialistController extends Controller
 {
     private $specialistService;
@@ -114,4 +114,5 @@ class SpecialistController extends Controller
         $this->specialistService->delete($id);
         return redirect()->route('specialists.index');
     }
+
 }

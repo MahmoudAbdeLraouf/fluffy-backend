@@ -23,82 +23,24 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-header">اداره أنواع الحيوانات </li>
+
+                <li class="nav-header"> أداره الطلبات </li>
                 <li class="nav-item">
-                    <a href="{{route('animal-types.index')}}" class="nav-link">
+                    <a href="{{route('specialists.orders.new')}}" class="nav-link">
                         <i class="nav-icon fas fa-ellipsis-h"></i>
-                        <p>عرض انواع الحيوانات </p>
+                        <p>عرض الطلبات الجديده </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('animal-types.create')}}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>أضافه نوع جديد</p>
-                    </a>
-                </li>
-                <li class="nav-header"> أداره المدن والمناطق </li>
-                <li class="nav-item">
-                    <a href="{{route('cities.index')}}" class="nav-link">
+                    <a href="{{route('specialists.orders.current')}}" class="nav-link">
                         <i class="nav-icon fas fa-ellipsis-h"></i>
-                        <p>عرض المدن </p>
+                        <p>عرض الطلبات الحاليه </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('cities.create')}}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>أضافه مدينه جديده</p>
-                    </a>
-                </li>
-                <li class="nav-header"> أداره انواع التطعيمات </li>
-                <li class="nav-item">
-                    <a href="{{route('vaccinations.index')}}" class="nav-link">
+                    <a href="{{route('specialists.orders.completed')}}" class="nav-link">
                         <i class="nav-icon fas fa-ellipsis-h"></i>
-                        <p>عرض انواع التطعيمات </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('vaccinations.create')}}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>أضافه نوع جديد</p>
-                    </a>
-                </li>
-                <li class="nav-header"> أداره المختصين  </li>
-                <li class="nav-item">
-                    <a href="{{route('specialists.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-ellipsis-h"></i>
-                        <p>عرض جميع المختصين </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('specialists.create')}}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>أضافه مختص جديد</p>
-                    </a>
-                </li>
-                <li class="nav-header"> أداره العملاء  </li>
-                <li class="nav-item">
-                    <a href="{{route('clients.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-ellipsis-h"></i>
-                        <p>عرض جميع العملاء </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('clients.create')}}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>أضافه عميل جديد</p>
-                    </a>
-                </li>
-                <li class="nav-header"> أداره الطلبات  </li>
-                <li class="nav-item">
-                    <a href="{{route('orders.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-ellipsis-h"></i>
-                        <p>عرض جميع الطلبات </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('orders.create')}}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>أضافه طلب جديد</p>
+                        <p>عرض الطلبات المنتهيه </p>
                     </a>
                 </li>
             </ul>

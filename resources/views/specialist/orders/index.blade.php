@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-specialist-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -23,9 +23,6 @@
                             <li class="breadcrumb-item active"> الطلبات  </li>
                         </ol>
                     </div>
-                    <div class="col-sm-6">
-                        <a href="{{route('orders.create')}}" class="btn btn-primary float-sm-left">اضافه طلب جديد </a>
-                    </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
@@ -37,7 +34,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">عرض كل الطلبات </h3>
+                                <h3 class="card-title">عرض كل الطلبات الجديده </h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -47,7 +44,6 @@
                                         <th> اسم العميل </th>
                                         <th> رقم الجوال </th>
                                         <th> المنطقه </th>
-                                        <th> حاله الطلب</th>
                                         <th>أجراءات</th>
                                     </tr>
                                     </thead>
@@ -57,31 +53,18 @@
                                             <td>{{$order->client->name}}</td>
                                             <td>{{$order->client->phone}}</td>
                                             <td>{{$order->region->name}}</td>
-                                            @if($order->status == 0)
-                                                <td>معلق</td>
-                                            @elseif($order->status == 1)
-                                                <td>مفعل</td>
-                                            @else
-                                                <td>اخري</td>
-                                            @endif
-                                                <td>
-                                                <a class="btn btn-primary update-btn" href="{{route('orders.edit',$order->id)}}">تعديل</a>
-                                                <form method="POST" action="{{route('orders.destroy',$order->id)}}" class="delete-form">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                    <div class="form-group">
-                                                        <input type="submit" class="btn btn-danger delete-user" value="حذف">
-                                                    </div>
-                                                </form>
-                                                    <a class="btn btn-primary update-btn" href="{{route('orders.invite',$order->id)}}">دعوه</a>
-                                                </td>
+                                            <td>
+                                                <a class="btn btn-primary update-btn" href="{{route('specialists.orders.status.change', [$order->id, 1])}}">استلام الطلب</a>
+                                                <a class="btn btn-primary update-btn" href="{{route('specialists.orders.details', [$order->id])}}">تفاصيل الطلب</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th> اسم الطلب </th>
+                                        <th> اسم العميل </th>
                                         <th> رقم الجوال </th>
+                                        <th> المنطقه  </th>
                                         <th>أجراءات</th>
                                     </tr>
                                     </tfoot>
@@ -100,4 +83,4 @@
         <!-- /.content -->
     </div>
 
-</x-admin-layout>
+</x-specialist-layout>

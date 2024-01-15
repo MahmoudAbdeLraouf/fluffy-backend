@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('client_animal_types', function (Blueprint $table) {
+            $table->id();
+            $table->integer('client_id')->nullable();
+            $table->integer('animal_type_id')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

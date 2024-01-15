@@ -24,7 +24,7 @@
                         </ol>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{route('orders.create')}}" class="btn btn-primary float-sm-left">اضافه طلب جديد </a>
+                        <a href="{{route('orders.items.create', $orderId)}}" class="btn btn-primary float-sm-left">اضافه تطعيم جديد </a>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -44,10 +44,9 @@
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th> اسم العميل </th>
-                                        <th> رقم الجوال </th>
-                                        <th> المنطقه </th>
-                                        <th> حاله الطلب</th>
+                                        <th> نوع الحيوان </th>
+                                        <th> عمر الحيوان </th>
+                                        <th> التطعيمات </th>
                                         <th>أجراءات</th>
                                     </tr>
                                     </thead>
@@ -56,10 +55,13 @@
                                         <tr>
                                             <td>{{$item->animalType->name}}</td>
                                             <td>{{$item->animal_type_age}}</td>
-                                            <td>{{$item->itemVaccination->pluck('name')}}</td>
+                                            <?php
+                                                $vaccinationIds =$item->itemVaccination->pluck('vaccination_id')
+                                                ?>
+                                            <td>{{App\Models\Vaccination::whereIn('id', $vaccinationIds)->get()->pluck('name')}}</td>
                                             <td>
-                                            <a class="btn btn-primary update-btn" href="{{route('itemsVaccination.edit',$item->id)}}">تعديل</a>
-                                            <form method="POST" action="{{route('itemsVaccination.destroy',$order->id)}}" class="delete-form">
+                                            <a class="btn btn-primary update-btn" href="{{route('items.edit',$item->id)}}">تعديل</a>
+                                            <form method="POST" action="{{route('items.destroy',$item->id)}}" class="delete-form">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
                                                 <div class="form-group">
@@ -72,8 +74,9 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th> اسم الطلب </th>
-                                        <th> رقم الجوال </th>
+                                        <th> نوع الحيوان </th>
+                                        <th> عمر الحيوان </th>
+                                        <th> التطعيمات </th>
                                         <th>أجراءات</th>
                                     </tr>
                                     </tfoot>

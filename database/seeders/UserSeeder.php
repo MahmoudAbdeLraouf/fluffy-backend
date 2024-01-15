@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'raouf@admin.com',
             'password' => 'password',
+            'is_admin'=>1
         ]);
     }
 }

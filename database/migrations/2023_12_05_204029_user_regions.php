@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('specialist_availability', function (Blueprint $table) {
+        Schema::create('user_regions', function (Blueprint $table) {
             $table->id();
-            $table->integer('specialist_id')->nullable();
-            $table->string('time')->nullable();
+            $table->integer('region_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }

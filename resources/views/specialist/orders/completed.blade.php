@@ -34,7 +34,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">عرض كل الطلبات الجديده </h3>
+                                <h3 class="card-title">عرض كل الطلبات المنتهيه </h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -44,7 +44,6 @@
                                         <th> اسم العميل </th>
                                         <th> رقم الجوال </th>
                                         <th> المنطقه </th>
-                                        <th>أجراءات</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -53,9 +52,6 @@
                                             <td>{{$order->client->name}}</td>
                                             <td>{{$order->client->phone}}</td>
                                             <td>{{$order->region->name}}</td>
-                                            <td>
-                                                <a class="btn btn-primary update-btn" href="{{route('orders.invite',$order->id)}}">استلام الطلب</a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -64,7 +60,6 @@
                                         <th> اسم العميل </th>
                                         <th> رقم الجوال </th>
                                         <th> المنطقه  </th>
-                                        <th>أجراءات</th>
                                     </tr>
                                     </tfoot>
                                 </table>

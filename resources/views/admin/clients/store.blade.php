@@ -76,7 +76,7 @@
                                     <select name="city_id" id="city_id" class="form-control" required>
                                     <option value="">اخنر مدينه</option>
                                     @foreach($cities as $city)
-                                            <option value="{{$city->id}}" {{isset($client) && $client->regions->count() && $client->regions->first()->city_id == $city->id ? 'selected' : ''}}>{{$city->name}}</option>
+                                            <option value="{{$city->id}}" {{isset($client) && $client->region->count() && $client->region->first()->city_id == $city->id ? 'selected' : ''}}>{{$city->name}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('city_id'))
@@ -85,21 +85,21 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> المنطقه </label>
-                                    <select name="region_ids" id="region_id" class="form-control" required>
+                                    <select name="region_id" id="region_id" class="form-control" required>
                                         <option value="">اخنر منطقه</option>
                                     @foreach($regions as $region)
-                                            <option value="{{$region->id}}" {{isset($client) && in_array($region->id, $client->regions->pluck('id')->toArray()) ? 'selected' : ''}}>{{$region->name}}</option>
+                                            <option value="{{$region->id}}" {{isset($client) && in_array($region->id, $client->region->pluck('id')->toArray()) ? 'selected' : ''}}>{{$region->name}}</option>
                                         @endforeach
                                     </select>
-                                    @if($errors->has('region_ids'))
-                                        <div class="error">{{ $errors->first('region_ids') }}</div>
+                                    @if($errors->has('region_id'))
+                                        <div class="error">{{ $errors->first('region_id') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> نوع الحيوان </label>
-                                    <select name="animal_types" id="city_id" class="form-control" required multiple>
-                                        @foreach($animal_types as $animal_type)
-                                            <option value="{{$animal_type->id}}" {{isset($client) && in_array($animal_type->id, $client->animal_types()->pluck('id')->toArray()) ? 'selected' : ''}}>{{$region->name}}</option>
+                                    <select name="animal_types_ids[]" id="animal_types_ids" class="form-control" required multiple>
+                                        @foreach($animalTypes as $type)
+                                            <option value="{{$type->id}}" {{isset($client) && in_array($type->id, $client->animal_types()->pluck('id')->toArray()) ? 'selected' : ''}}>{{$type->name}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('animal_type'))
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> كيف عرف عنا </label>
-                                    <select name="gender" id="gender" class="form-control" required>
+                                    <select name="know_from" id="know_from" class="form-control" required>
                                         <option value="">اخنر كيف عرف عنا</option>
                                         <option value = "1">فيس بوك </option>
                                         <option value = "2">تويتر </option>

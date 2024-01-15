@@ -12,15 +12,18 @@ Class ClientService {
     // create Client function
     public function create($request)
     {
-        $client = new Clientt();
+        $client = new Client();
         $client->name = $request->name;
-        $client->email = $request->email;
-        $client->password = $request->password;
+        $client->gender = $request->gender;
         $client->phone = $request->phone;
+        $client->region_id = $request->region_id;
+        $client->know_from = $request->know_from;
+        $client->subscription_date = $request->subscription_date;
         $client->save();
+
         // check if request of region ids is more then 1
-        if(count($request->region_ids) > 0){
-            $client->regions()->attach($request->region_ids);
+        if(count($request->animal_types_ids) > 0){
+            $client->animal_types()->attach($request->animal_types_ids);
         }
     }
 
@@ -35,13 +38,14 @@ Class ClientService {
     {
         $client = Client::find($id);
         $client->name = $request->name;
-        $client->email = $request->email;
-        if ($request->password != null){
-            $client->password = $request->password;
-        }
+        $client->gender = $request->gender;
         $client->phone = $request->phone;
+        $client->region_id = $request->region_id;
+        $client->know_from = $request->know_from;
+        $client->subscription_date = $request->subscription_date;
         $client->save();
-        $client->regions()->sync($request->region_ids);
+
+        $client->animal_types()->sync($request->animal_types_ids);
     }
 
     // delete Client function

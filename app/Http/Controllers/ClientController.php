@@ -37,8 +37,8 @@ class ClientController extends Controller
     {
         $cities = $this->cityService->list();
         $regions = $cities->count() ? $this->regionService->list($cities->first()->id): collect();
-        $animal_types = $this->animalTypeService->list();
-        return view('admin.clients.store', compact('cities','regions','animal_types'));
+        $animalTypes = $this->animalTypeService->list();
+        return view('admin.clients.store', compact('cities','regions','animalTypes'));
     }
 
     /**
@@ -53,14 +53,16 @@ class ClientController extends Controller
             'phone' => 'required',
             'region_id'=>'required',
             'know_from'=>'required',
-            'subscription_date'=>'required'
+            'subscription_date'=>'required',
+            'animal_types_ids'=>'required|array'
         ],[
                 'name.required' => 'حقل الاسم مطلوب',
                 'gender.required' => 'حقل النوع مطلوب',
                 'phone.required' => 'حقل رقم الجوال مطلوب',
                 'region_id.required' => 'حقل المنطقه مطلوب',
                 'know_from'=>'حقل كيف عرف عنا مطلوب',
-                'subscription_date'=>'حقل تاريخ الاشتراك مطلوب'
+                'subscription_date'=>'حقل تاريخ الاشتراك مطلوب',
+                'animal_types_ids'=>'حقل انواع الحيوانات مطلوب'
             ]
         );
         $this->clientService->create($request);
@@ -83,8 +85,8 @@ class ClientController extends Controller
         $client = $this->clientService->find($id);
         $cities = $this->cityService->list();
         $regions = $client->region->count() ? $this->regionService->list($client->region->city_id) : collect();
-        $animal_types = $this->animalTypeService->list();
-        return view('admin.clients.store', compact('client', 'cities','regions','animal_types'));
+        $animalTypes = $this->animalTypeService->list();
+        return view('admin.clients.store', compact('client', 'cities','regions','animalTypes'));
     }
 
     /**
@@ -121,5 +123,12 @@ class ClientController extends Controller
     {
         $this->clientService->delete($id);
         return redirect()->route('clients.index');
+    }
+    // get city by client id
+    public function city(string $id)
+    {
+        $client = $this->clientService->find($id);
+        $cityId = $client->region ? $client->region->city->id : '';
+        return response()->json(['city_id' => $cityId, 'region_id' => $client->region_id]);
     }
 }

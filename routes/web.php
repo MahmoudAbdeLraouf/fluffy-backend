@@ -66,14 +66,15 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::middleware('sp')->group(function () {
+    Route::group(["name" => "specialists", "prefix" => "specialists"], function () {
+        Route::get('orders/new', [SpecialistOrderController::class, 'listNewOrders'])->name('specialists.orders.new');
+        Route::get('orders/current', [SpecialistOrderController::class, 'listCurrentOrders'])->name('specialists.orders.current');
+        Route::get('orders/completed', [SpecialistOrderController::class, 'listCompletedOrders'])->name('specialists.orders.completed');
+        Route::get('orders/details/{id}', [SpecialistOrderController::class, 'details'])->name('specialists.orders.details');
+        Route::get('orders/status/change/{id}/{status}', [SpecialistOrderController::class, 'changeStatus'])->name('specialists.orders.status.change');
 
-Route::group(["name"=>"specialists", "prefix"=>"specialists"], function(){
-    Route::get('orders/new', [SpecialistOrderController::class, 'listNewOrders'])->name('specialists.orders.new');
-    Route::get('orders/current', [SpecialistOrderController::class, 'listCurrentOrders'])->name('specialists.orders.current');
-    Route::get('orders/completed', [SpecialistOrderController::class, 'listCompletedOrders'])->name('specialists.orders.completed');
-    Route::get('orders/details/{id}', [SpecialistOrderController::class, 'details'])->name('specialists.orders.details');
-    Route::get('orders/status/change/{id}/{status}', [SpecialistOrderController::class, 'changeStatus'])->name('specialists.orders.status.change');
-
+    });
 });
 
 require __DIR__.'/auth.php';
