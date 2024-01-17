@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('client_id')->nullable();
             $table->integer('region_id')->nullable();
             $table->string('address')->nullable();
-            $table->integer('specialist_id')->default(0);
+            $table->integer('user_id')->default(0);
             $table->timestamp('date');
             $table->time('from')->nullable();
             $table->time('to')->nullable();

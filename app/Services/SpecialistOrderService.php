@@ -1,15 +1,12 @@
 <?php
 namespace App\Services;
-use App\Models\Specialist;
+use App\Models\User;
 use App\Models\Order;
 Class SpecialistOrderService {
 
-    // list order
-
     public function invited($spId)
     {
-//        dd(config('constants.new_order'));
-        $orders = Order::where('status', config('constants.new_order'))->where('specialist_id', 0)
+        $orders = Order::where('status', config('constants.new_order'))->where('user_id', 0)
             ->whereHas('invitations', function ($q) use ($spId) {
                $q->specialist_id = $spId;
             })->get();
@@ -17,6 +14,6 @@ Class SpecialistOrderService {
     }
     public function list($spId, $status)
     {
-        return Order::class::where('specialist_id', $spId)->where('status', $status)->get();
+        return Order::class::where('user_id', $spId)->where('status', $status)->get();
     }
 }

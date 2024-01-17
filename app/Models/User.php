@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Region::class, 'user_regions');
     }
+
+    public function availability()
+    {
+        return $this->hasMany(UserAvailability::class);
+    }
 }

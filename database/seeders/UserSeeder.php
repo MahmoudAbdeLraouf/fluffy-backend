@@ -18,5 +18,11 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'is_admin'=>1
         ]);
+        User::Create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => 'password',
+            'is_admin'=>1
+        ]);
     }
 }

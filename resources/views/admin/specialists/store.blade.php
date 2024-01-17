@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> كلمه المرور </label>
-                                    <input type="password" class="form-control" required  id="password" name="password">
+                                    <input type="password" class="form-control"  id="password" name="password">
                                     @if($errors->has('password'))
                                         <div class="error">{{ $errors->first('password') }}</div>
                                     @endif
@@ -91,143 +91,54 @@
                                         <div class="error">{{ $errors->first('region_ids') }}</div>
                                     @endif
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> المواعيد المتاحه </label>
+                                <div class="form-avaliabity" id ="form-avaliabity">
+                                    <div class="header"  style="margin-bottom: 3%; margin-top: 3%">
+                                        <h4 for="exampleInputEmail1" style="display: inline-block; width: 80%"> المواعيد المتاحه </h4>
+                                        <button class="btn btn-danger" id="add-form-avaliabity">أضافه موعد جديد</button>
+                                    </div>
+                                    @if(isset($specialist))
+                                        @foreach($specialist->availability as $av)
+                                            <div class="avaliabity-item">
+                                                <div class="form-group">
+                                                    <select name="avaliabity_day[]" id="avaliabity-day-1" class="form-control" required>
+                                                        <option value="">اخنر التوقيت</option>
+                                                        @foreach($avaliabity as $key => $ava)
+                                                            <option {{$key == $av->avaliabity_day ? "selected" : ''}}>{{$key}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6" style="display: inline-block; width: 49%">
+                                                    <label for="exampleInputEmail1"> من </label>
+                                                    <input type="time" name="avaliabity_from[]" value="{{$av->avaliabity_from}}" class="form-control" id="avaliabity-from-1" required>
+                                                </div>
+                                                <div class="form-group col-md-6" style="display: inline-block; width: 49%">
+                                                    <label for="exampleInputEmail1"> الي </label>
+                                                    <input type="time" name="avaliabity_to[]" value="{{$av->avaliabity_to}}"  class="form-control" id="avaliabity-to-1" required>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="avaliabity-item">
+                                        <div class="form-group">
+                                            <select name="avaliabity_day[]" id="avaliabity-day-1" class="form-control" required>
+                                                <option value="">اخنر التوقيت</option>
+                                                @foreach($avaliabity as $key => $ava)
+                                                    <option>{{$key}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6" style="display: inline-block; width: 49%">
+                                            <label for="exampleInputEmail1"> من </label>
+                                            <input type="time" name="avaliabity_from[]" class="form-control" id="avaliabity-from-1" required>
+                                        </div>
+                                        <div class="form-group col-md-6" style="display: inline-block; width: 49%">
+                                            <label for="exampleInputEmail1"> الي </label>
+                                            <input type="time" name="avaliabity_to[]" class="form-control" id="avaliabity-to-1" required>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-group col-md-12">
-                                        <label> السبت </label>
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد من الساعه </label>
-                                        <input type="time" class="form-control" name="from"/>
-                                        @if($errors->has('from'))
-                                            <div class="error">{{ $errors->first('from') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد الي الساعه </label>
-                                        <input type="time" class="form-control" name="to"/>
-                                        @if($errors->has('to'))
-                                            <div class="error">{{ $errors->first('to') }}</div>
-                                        @endif
-                                    </div>
-                            </div>
-                                <div class="form-group">
-                                    <div class="form-group col-md-12">
-                                        <label> الحد </label>
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد من الساعه </label>
-                                        <input type="time" class="form-control" name="from"/>
-                                        @if($errors->has('from'))
-                                            <div class="error">{{ $errors->first('from') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد الي الساعه </label>
-                                        <input type="time" class="form-control" name="to"/>
-                                        @if($errors->has('to'))
-                                            <div class="error">{{ $errors->first('to') }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group col-md-12">
-                                        <label> الاثنين </label>
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد من الساعه </label>
-                                        <input type="time" class="form-control" name="from"/>
-                                        @if($errors->has('from'))
-                                            <div class="error">{{ $errors->first('from') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد الي الساعه </label>
-                                        <input type="time" class="form-control" name="to"/>
-                                        @if($errors->has('to'))
-                                            <div class="error">{{ $errors->first('to') }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group col-md-12">
-                                        <label> الثلاثاء </label>
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد من الساعه </label>
-                                        <input type="time" class="form-control" name="from"/>
-                                        @if($errors->has('from'))
-                                            <div class="error">{{ $errors->first('from') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد الي الساعه </label>
-                                        <input type="time" class="form-control" name="to"/>
-                                        @if($errors->has('to'))
-                                            <div class="error">{{ $errors->first('to') }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group col-md-12">
-                                        <label> الاربعاء </label>
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد من الساعه </label>
-                                        <input type="time" class="form-control" name="from"/>
-                                        @if($errors->has('from'))
-                                            <div class="error">{{ $errors->first('from') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد الي الساعه </label>
-                                        <input type="time" class="form-control" name="to"/>
-                                        @if($errors->has('to'))
-                                            <div class="error">{{ $errors->first('to') }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group col-md-12">
-                                        <label> الخميس </label>
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد من الساعه </label>
-                                        <input type="time" class="form-control" name="from"/>
-                                        @if($errors->has('from'))
-                                            <div class="error">{{ $errors->first('from') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد الي الساعه </label>
-                                        <input type="time" class="form-control" name="to"/>
-                                        @if($errors->has('to'))
-                                            <div class="error">{{ $errors->first('to') }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group col-md-12">
-                                        <label> الجمعه </label>
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد من الساعه </label>
-                                        <input type="time" class="form-control" name="from"/>
-                                        @if($errors->has('from'))
-                                            <div class="error">{{ $errors->first('from') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-6" style="display: inline-block;width:49%">
-                                        <label>موعد الي الساعه </label>
-                                        <input type="time" class="form-control" name="to"/>
-                                        @if($errors->has('to'))
-                                            <div class="error">{{ $errors->first('to') }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                            <!-- /.card-body -->
+                                    <!-- /.card-body -->
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>

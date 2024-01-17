@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\SpecialistOrderService;
 use App\Services\OrderService;
-
+use Illuminate\Support\Facades\Auth;
 class SpecialistOrderController extends Controller
 {
     //
@@ -19,17 +19,21 @@ class SpecialistOrderController extends Controller
 
     public function listNewOrders()
     {
-        $orders = $this->specialistOrderService->invited(1);
+        // get authenticated user
+         $user = Auth::user();
+        $orders = $this->specialistOrderService->invited($user->id);
         return view('specialist.orders.index', compact('orders'));
     }
     public function listCurrentOrders()
     {
-        $orders = $this->specialistOrderService->list(1, config('constants.accepted_order'));
+        $user = Auth::user();
+        $orders = $this->specialistOrderService->list($user->id, config('constants.accepted_order'));
         return view('specialist.orders.current', compact('orders'));
     }
     public function listCompletedOrders()
     {
-        $orders = $this->specialistOrderService->list(1, config('constants.completed_order'));
+        $user = Auth::user();
+        $orders = $this->specialistOrderService->list($user->id, config('constants.completed_order'));
         return view('specialist.orders.completed', compact('orders'));
     }
 

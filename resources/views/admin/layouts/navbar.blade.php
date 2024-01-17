@@ -6,10 +6,18 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="../../index3.html" class="nav-link">Home</a>
+            <a href={{route('orders.index')}} class="nav-link">الطلبات</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-dropdown-link :href="route('logout')"
+                                 onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                    {{ __('تسجيل الخروج') }}
+                </x-dropdown-link>
+            </form>
         </li>
     </ul>
 

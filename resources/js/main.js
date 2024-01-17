@@ -43,3 +43,30 @@ $("#client_id").change(function () {
         }
     });
 });
+
+$("#add-form-avaliabity").click(function (){
+    console.log("click");
+   // append html to div
+    $("#form-avaliabity").append('<div class="avaliabity-item">' +
+        '<div class="form-group">' +
+            '<select name="avaliabity_day[]" id="avaliabity-day-1" class="form-control" required>' +
+                '<option value="">اخنر التوقيت</option>' +
+                '<option>السبت</option>' +
+                '<option>الاحد</option>' +
+                '<option>الاثنين</option>' +
+                '<option>الثلاثاء</option>' +
+                '<option>الاربعاء</option>' +
+                '<option>الخميس</option>' +
+                '<option>الجمعه</option>' +
+            '</select>' +
+        '</div>' +
+        '<div class="form-group col-md-6" style="display: inline-block; width: 49%">' +
+            '<label for="exampleInputEmail1"> من </label>' +
+            '<input type="time" name="avaliabity_from[]" class="form-control" id="avaliabity-from-1">' +
+        '</div>' +
+        '<div class="form-group col-md-6" style="display: inline-block; width: 49%">' +
+            '<label for="exampleInputEmail1"> الي </label>' +
+            '<input type="time" name="avaliabity_to[]" class="form-control" id="avaliabity-to-1">' +
+        '</div>'+
+        '</div>')
+});

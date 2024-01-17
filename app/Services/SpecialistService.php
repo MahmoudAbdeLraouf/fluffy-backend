@@ -23,6 +23,13 @@ Class SpecialistService {
         if(count($request->region_ids) > 0){
             $specialist->regions()->attach($request->region_ids);
         }
+        foreach ($request->avaliabity_day as $key => $day){
+            $specialist->availability()->create([
+                'avaliabity_day' => $day,
+                'avaliabity_from' => $request->avaliabity_from[$key],
+                'avaliabity_to' => $request->avaliabity_to[$key],
+            ]);
+        }
     }
 
     // find Specialist function
@@ -43,6 +50,14 @@ Class SpecialistService {
         $specialist->phone = $request->phone;
         $specialist->save();
         $specialist->regions()->sync($request->region_ids);
+        $specialist->availability()->delete();
+        foreach ($request->avaliabity_day as $key => $day){
+            $specialist->availability()->create([
+                'avaliabity_day' => $day,
+                'avaliabity_from' => $request->avaliabity_from[$key],
+                'avaliabity_to' => $request->avaliabity_to[$key],
+            ]);
+        }
     }
 
     // delete Specialist function

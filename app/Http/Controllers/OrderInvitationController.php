@@ -23,7 +23,7 @@ class OrderInvitationController extends Controller
     public function invite(string $id)
     {
         $order = $this->orderService->find($id);
-        $specialists = $this->specialistService->list();
+        $specialists = $this->orderInvitationService->findSp($id);
         return view('admin.order_invitations.invite', compact('specialists','id', 'order'));
     }
     public function sendInvitation(Request $request)

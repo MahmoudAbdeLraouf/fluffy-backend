@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::middleware('sp')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::group(["name" => "specialists", "prefix" => "specialists"], function () {
         Route::get('orders/new', [SpecialistOrderController::class, 'listNewOrders'])->name('specialists.orders.new');
         Route::get('orders/current', [SpecialistOrderController::class, 'listCurrentOrders'])->name('specialists.orders.current');

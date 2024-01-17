@@ -34,7 +34,8 @@ class SpecialistController extends Controller
     {
         $cities = $this->cityService->list();
         $regions = $cities->count() ? $this->regionService->list($cities->first()->id): collect();
-        return view('admin.specialists.store', compact('cities','regions'));
+        $avaliabity = config('constants.avaliabity');
+        return view('admin.specialists.store', compact('cities','regions', 'avaliabity'));
     }
 
     /**
@@ -78,7 +79,8 @@ class SpecialistController extends Controller
         $specialist = $this->specialistService->find($id);
         $cities = $this->cityService->list();
         $regions = $specialist->regions->count() ? $this->regionService->list($specialist->regions->first()->city_id) : collect();
-        return view('admin.specialists.store', compact('specialist', 'cities','regions'));
+        $avaliabity = config('constants.avaliabity');
+        return view('admin.specialists.store', compact('specialist', 'cities','regions', 'avaliabity'));
     }
 
     /**
@@ -91,7 +93,6 @@ class SpecialistController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'password'=>'required',
             'region_ids'=>'required'
         ],[
                 'name.required' => 'حقل الاسم مطلوب',

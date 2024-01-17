@@ -33,3 +33,11 @@ body
 select{
     padding-right: 30px !important;
 }
+
+.avaliabity-item{
+    background-color: #26292d;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 1%;
+}
